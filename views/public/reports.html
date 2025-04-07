@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Analytics</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Face Analytics Table</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Sno</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>Emotion</th>
+                <th>Status</th>
+                <th>Face Image</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody id="analytics-table">
+            <!-- Data will be inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        fetch("/view-analytics")
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById("analytics-table");
+                data.forEach(row => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${row.Sno}</td>
+                        <td>${row.gender}</td>
+                        <td>${row.age}</td>
+                        <td>${row.emotion}</td>
+                        <td>${row.status}</td>
+                        <td><img src="${row.face_image}" width="50" height="50"></td>
+                        <td>${row.time}</td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
+            })
+            .catch(error => console.error("Error fetching data:", error));
+    </script>
+
+</body>
+</html>

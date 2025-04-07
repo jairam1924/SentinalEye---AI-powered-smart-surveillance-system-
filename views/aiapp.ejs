@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sentinal eye</title>
+  <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXjceAz3yAZ5Wt_1xqDxOWgOnVd9TVsfb7AH6bO3W-_JZ23xEBIPArcVdc0igqAg3CMfQ&usqp=CAU" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  </head>
+  <style>
+    .index {
+    background:  
+        url('bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
+}
+
+  /* Add any custom styles here */
+  #controls button { margin-right: 10px; } /* Example button spacing */
+  #loading-gif { width: 50px; height: 50px; } /* Example GIF size */
+  #results { margin-top: 20px; }
+  #anomaly-status { font-weight: bold; padding: 10px; border-radius: 5px; }
+  #details-box { border: 1px solid #ccc; padding: 10px; border-radius: 5px; }
+
+  </style>
+</head>
+<body class="bg-gray-100 text-dark index">
+    <!-- Navbar -->
+    <nav class="bg-green-900 opacity-90 p-4 shadow-md">
+        <div class="max-w-screen-xl px-16 mx-auto flex justify-between items-center">
+        <h1 class="text-white text-2xl font-semibold"><a href="/" class="text-white">Sentinal Eye</a></h1>
+        <div class="flex space-x-4">
+            <a href="/" class="text-white text-lg   duration-300 ease-in-out hover:bg-yellow-500 px-4 py-2 rounded">Home</a>
+            <a href="/aiapp" class="text-white text-lg   duration-300 ease-in-out hover:bg-yellow-500 px-4 py-2 rounded">AI Surveillance</a> 
+            <a href="/profile" class="text-white text-lg   duration-300 ease-in-out hover:bg-yellow-500 px-4 py-2 rounded">Profile</a>
+            <% if (user && user.role !== 'user') { %>  
+
+            <a href="/admin" class="text-white text-lg   duration-300 ease-in-out hover:bg-yellow-500 px-4 py-2 rounded">Admin</a>
+            <% } %>
+            <a href="/logout" class="text-white text-lg duration-300 ease-in-out hover:bg-red-500 px-4 py-2 rounded">Logout</a>
+        </div>
+        </div>
+    </nav>
+
+    <div class="mx-auto max-w-6xl my-10  p-10 rounded bg-white opacity-90">
+        <div class="flex space-x-3">
+            <div>
+                <h1 class="text-3xl font-semibold">AI-Powered Surveillance System</h1>
+                <div class="text-red-500 font-semibold text-lg my-3">Intelligent Monitoring for Enhanced Security</div>
+                <p>Our AI-driven surveillance system leverages advanced computer vision and machine learning to provide real-time monitoring, threat detection, and anomaly recognition. Designed for smart security, it enables automated object detection, behavior analysis, ensuring proactive safety measures. With seamless cloud integration, real-time alerts, and adaptive learning, our system enhances situational awareness for businesses, public spaces, and residential areas. Stay ahead of security threats with intelligent, data-driven surveillance.</p>
+            </div>
+            <img src="camera.gif" class="w-50" />
+        </div>
+    </div>
+    <main class="mx-auto max-w-6xl my-10  p-10 rounded bg-gradient-to-t from-[#f5fafd] to-[#b5e0f7] opacity-98">
+  
+        <div class="bg-red-100  border border-red-300 shadow p-5 rounded-xl mb-5 opacity-100">
+            <h1 class="text-2xl font-bold mb-3 opacity-100">Analyze Live Video</h1>
+            <video id="video" autoplay style="display: none;"></video> <button id="live" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Enable Live Camera
+            </button>
+            <div id="controls" style="display:none;" class="pt-4">
+            <section id="recording-gif"style="display: none;">
+                <div  class="flex space-x-2 mb-4">
+                <img  src="recording.gif" class="p-2 my-2 w-12 h-12 p-3 rounded-md">
+                <div class="text-red-500 font-bold mt-5">Recording</div>
+                </div>
+            </section>
+            
+
+            <button id="start" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                Start Recording
+            </button>
+            <button id="stop" style="display:none;" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                Stop Recording
+            </button>
+            <button id="process"  style="display:none;" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Process Video
+                </button>
+
+
+                
+        
+
+            
+            <button id="retry"  style="display: none;" class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">
+            Retry
+            </button>
+                
+
+        
+            </div>
+        </div>
+
+        <section class="display:block">
+        <form action="/process-video" method="post" enctype="multipart/form-data" class="border border-yellow-500 shadow bg-yellow-100 p-8 rounded-md">
+            <h1 class="text-2xl font-bold mb-3">Upload CCTV Footage</h1> 
+            <input type="file" name="video" accept="video/*" class=" ">
+            <button type="button" id="analyze" class="bg-green-500 text-white px-5 py-1.5 rounded-md hover:bg-green-600">Analyze Video</button>
+        </form>
+        </section>
+
+        <section class="bg-green-100 p-5 rounded my-5 border border-green-300 shadow">
+        <div class="text-xl font-bold">Status Window</div>
+        <div id="video-embed" class="my-4"></div>
+        <div id="loading-gif" >
+            <section class="text-center">
+            <div class="flex space-x-2 font-bold text-gray-600 my-10">
+                <img  src="loading.gif" class="py-2 my-2 w-8 h-10 mx-auto" alt="Loading..." > 
+                <p class="pt-4  px-3">Processing</p>
+            </div>
+            </section>
+        </div>
+            
+        
+        <div id="results" style="display: none;" class="my-5">
+            <div id="anomaly-status" class="p-4 rounded"></div> <div id="details-box" class="mt-4 p-4 rounded" ></div> 
+        </div>
+        </section>
+    </main>
+
+
+  
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script type="text/javascript">
+  emailjs.init('ofPcslfO7IrlxwX-X')
+</script>
+<script src="/js/video.js"></script>
+
+    
+</body>
+</html>
+   

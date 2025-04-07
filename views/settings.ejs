@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SentinalEye - Analytics</title>
+  <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXjceAz3yAZ5Wt_1xqDxOWgOnVd9TVsfb7AH6bO3W-_JZ23xEBIPArcVdc0igqAg3CMfQ&usqp=CAU" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-100 text-dark">
+
+  <!-- Navbar -->
+   <nav class="bg-blue-600 p-4 shadow-md">
+    <div class="max-w-screen-xl px-16 mx-auto flex justify-between items-center">
+      <h1 class="text-white text-2xl font-semibold"><a href="/" class="text-white">SentinalEye</a></h1>
+      <div class="flex space-x-4">
+        <a href="/profile" class="text-white text-sm   duration-300 ease-in-out hover:bg-yellow-500 px-4 py-2 rounded">Profile</a>
+        <a href="/settings" class="text-white  text-sm  duration-300 ease-in-out hover:bg-yellow-500 px-4 py-2 rounded">Analytics</a>
+        <% if (user && user.role !== 'user') { %>  
+          <a href="/admin" class="text-white text-sm border-b  duration-300 ease-in-out hover:text-yellow-400 px-4 py-2 rounded">⚡Admin Dashboard </a>
+       <% } %>
+        <a href="/logout" class="text-white text-sm duration-300 ease-in-out hover:bg-yellow-500 px-4 py-2 rounded">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Settings Section -->
+  <section class="max-w-screen-xl px-20 py-8 mx-auto">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Face Data Records</h2>
+    <!-- Table for displaying data -->
+    <table class="min-w-full bg-white shadow-md rounded-md overflow-hidden">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="py-2 px-4 border-b text-left">S.No</th>
+          <th class="py-2 px-4 border-b text-left">Name</th>
+          <th class="py-2 px-4 border-b text-left">Age</th>
+          <th class="py-2 px-4 border-b text-left">Emotion</th>
+          <th class="py-2 px-4 border-b text-left">Gender</th>
+          <th class="py-2 px-4 border-b text-left">Status</th>
+          <th class="py-2 px-4 border-b text-left">Image</th>
+          <th class="py-2 px-4 border-b text-left">Timestamp</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% myFaces.forEach((face, index) => { %>
+          <tr class="hover:bg-gray-100">
+            <td class="py-2 px-4 border-b"><%= index + 1 %></td>
+            <td class="py-2 px-4 border-b"><%= face.name || 'Unknown' %></td>
+            <td class="py-2 px-4 border-b"><%= face.age %></td>
+            <td class="py-2 px-4 border-b"><%= face.emotion %></td>
+            <td class="py-2 px-4 border-b"><%= face.gender %></td>
+            <td class="py-2 px-4 border-b"><%= face.status %></td>
+            <td class="py-2 px-4 border-b">
+              <img src="/uploads/<%= face.face_image %>" alt="Face Image" class="w-16 h-16 object-cover rounded-md">
+            </td>
+            <td class="py-2 px-4 border-b"><%= face.timestamp %></td>
+          </tr>
+        <% }); %>
+      </tbody>     
+    </table>
+  </section>
+</body>
+</html>

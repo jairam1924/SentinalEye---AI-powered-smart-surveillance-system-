@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Analyzer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-800 flex items-center justify-center min-h-screen">
+
+    <div class="flex gap-6">
+
+        <!-- 📸 Face Analyzer API (Live & Upload) -->
+        <div class="bg-white shadow-lg rounded-lg p-6 w-96 h-auto min-h-[400px]">
+            <h2 class="text-2xl font-bold text-gray-700 text-center">Face Analyzer API</h2>
+
+            <!-- 🎥 Live Camera Section -->
+            <div class="mt-4 flex flex-col items-center">
+                <video id="video" autoplay class="w-64 h-48 border border-gray-400 rounded-lg shadow"></video>
+                <button id="startLiveDetection" class="px-4 py-2 mt-2 font-bold text-white bg-green-500 rounded-lg hover:bg-green-700">
+                    Start Live Detection
+                </button>
+                <button id="stopLiveDetection" class="px-4 py-2 mt-2 font-bold text-white bg-red-500 rounded-lg hover:bg-red-700 hidden">
+                    Stop Camera
+                </button>
+            </div>
+
+            <p class="text-gray-700 font-bold text-center text-lg mt-4"> (or) </p>
+
+            <!-- 📤 Upload Image Section -->
+            <form id="uploadForm" enctype="multipart/form-data" class="bg-gray-200 p-4 rounded-lg shadow-lg">
+                <h1 class="text-blue-600 text-lg font-bold text-center">Post Your Avatar</h1>
+                <input type="file" id="imageInput" name="image" accept="image/*" 
+                    class="w-full p-2 mt-2 border rounded-lg bg-white">
+                <button type="submit" 
+                    class="px-4 py-2 mt-3 w-full font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-700">
+                    Upload & Analyze
+                </button>
+            </form>
+        </div>
+
+        <!-- 📊 My Analysis -->
+        <div class="bg-gray-200 shadow-lg rounded-lg p-6 w-96 h-auto min-h-[400px]">
+            <p class="font-bold text-green-600 text-xl text-center">My Analysis</p>
+            <img id="face-image" class="mt-2 w-32 h-32 mx-auto rounded-lg hidden" />
+            <p id="api-output" class="mt-2 text-lg text-gray-800 bg-white p-3 rounded-lg overflow-auto h-96 text-left"></p>
+        </div>
+
+    </div>
+
+</body>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const video = document.getElementById("video");
+            const startLiveDetection = document.getElementById("startLiveDetection");
+            const stopLiveDetection = document.getElementById("stopLiveDetection");
+            const faceImage = document.getElementById("face-image");
+            let cameraStream;
+            let captureInterval;
+
+            async function startCamera() {
+                try {
+                    cameraStream = await navigator.mediaDevices.getUserMedia({ video: true });
+                    video.srcObject = cameraStream;
+                    captureImagesAutomatically();
+                    startLiveDetection.classList.add("hidden");
+                    stopLiveDetection.classList.remove("hidden");
+                } catch (error) {
+                    console.error("Error accessing camera:", error);
+                }
+            }
+
+            function captureImagesAutomatically() {
+                captureInterval = setInterval(() => {
+                    captureAndSendImage();
+                }, 10000); // Capture every 10 seconds
+            }
+
+            function stopCamera() {
+                clearInterval(captureInterval);
+                if (cameraStream) {
+                    let tracks = cameraStream.getTracks();
+                    tracks.forEach(track => track.stop());
+                }
+                startLiveDetection.classList.remove("hidden");
+                stopLiveDetection.classList.add("hidden");
+            }
+
+            function captureAndSendImage() {
+                const canvas = document.createElement("canvas");
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                canvas.toBlob(async (blob) => {
+                    const formData = new FormData();
+                    formData.append("image", blob, "webcam.jpg");
+                    formData.append("name", "Live Capture");
+
+                    try {
+                        const response = await fetch("http://localhost:5000/api/analyze-face", {
+                            method: "POST",
+                            body: formData
+                        });
+                        const data = await response.json();
+                        displayFormattedResult(data, URL.createObjectURL(blob));
+                    } catch (error) {
+                        console.error("Error:", error);
+                    }
+                }, "image/jpeg");
+            }
+
+            function displayFormattedResult(data, imageUrl) {
+                if (data.success && data.data.length > 0) {
+                    const face = data.data[0]; // Assuming only one face detected
+                    faceImage.src = data.face_image_url || imageUrl;
+                    faceImage.classList.remove("hidden");
+                    const formattedText = `
+                        Age: ${face.age}<br>Gender: ${face.gender}<br>Expression: ${face.emotion}
+                    `;
+                    document.getElementById("api-output").innerHTML = formattedText;
+                } else {
+                    document.getElementById("api-output").innerText = "No face detected or error in analysis.";
+                    faceImage.classList.add("hidden");
+                }
+            }
+
+            startLiveDetection.addEventListener("click", startCamera);
+            stopLiveDetection.addEventListener("click", stopCamera);
+
+            document.getElementById("uploadForm").addEventListener("submit", async function (event) {
+                event.preventDefault();
+
+                const formData = new FormData();
+                const fileInput = document.getElementById("imageInput").files[0];
+
+                if (!fileInput) {
+                    document.getElementById("api-output").innerText = "Please upload an image.";
+                    return;
+                }
+
+                formData.append("image", fileInput);
+                formData.append("name", "Uploaded Image");
+
+                try {
+                    const response = await fetch("http://localhost:5000/api/analyze-face", {
+                        method: "POST",
+                        body: formData
+                    });
+                    const data = await response.json();
+                    displayFormattedResult(data, URL.createObjectURL(fileInput));
+                } catch (error) {
+                    document.getElementById("api-output").innerText = "Error: " + error;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

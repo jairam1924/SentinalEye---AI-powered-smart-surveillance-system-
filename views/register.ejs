@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXjceAz3yAZ5Wt_1xqDxOWgOnVd9TVsfb7AH6bO3W-_JZ23xEBIPArcVdc0igqAg3CMfQ&usqp=CAU" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <style>
+    .register{
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1100%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='url(%26quot%3b%23SvgjsLinearGradient1101%26quot%3b)'%3e%3c/rect%3e%3cpath d='M354.7966992601877 104.84018593546826L343.96888148933436 193.02568492027763 432.15438047414375 203.85350269113098 442.9821982449971 115.66800370632161z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M208.58996150058476 361.62059686125957L85.57404551697226 376.72505208937605 100.67850074508873 499.7409680729885 223.6944167287012 484.6365128448721z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M664.1543606620622 116.21976609199803L633.710027615825 209.91778870868288 789.4792280639709 208.7352769696963z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M1110.9596132650554 375.74929339936944L1067.4854992579537 442.69355839178615 1189.6389537501298 474.43259690623034z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M822.817%2c477.212C846.21%2c477.38%2c867.81%2c465.711%2c880.366%2c445.972C893.982%2c424.566%2c899.608%2c397.69%2c887.621%2c375.331C875.049%2c351.88%2c849.369%2c336.897%2c822.817%2c338.626C798.555%2c340.206%2c782.485%2c361.407%2c771.15%2c382.916C760.757%2c402.639%2c755.966%2c425.607%2c766.679%2c445.158C777.777%2c465.413%2c799.722%2c477.047%2c822.817%2c477.212' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M545.833%2c299.748C571.017%2c297.588%2c592.406%2c282.523%2c604.631%2c260.4C616.432%2c239.046%2c616.369%2c213.862%2c605.314%2c192.112C593.003%2c167.89%2c573.003%2c144.96%2c545.833%2c144.718C518.372%2c144.473%2c498.99%2c167.715%2c484.487%2c191.035C468.794%2c216.268%2c451.917%2c246.365%2c466.52%2c272.244C481.259%2c298.363%2c515.952%2c302.311%2c545.833%2c299.748' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M-18.52 458.02 a118.62 118.62 0 1 0 237.24 0 a118.62 118.62 0 1 0 -237.24 0z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M456.908%2c575.314C503.087%2c572.878%2c535.247%2c535.088%2c558.511%2c495.123C581.97%2c454.825%2c598.651%2c408.296%2c578.655%2c366.172C555.899%2c318.233%2c509.964%2c282.09%2c456.908%2c281.083C402.319%2c280.047%2c352.843%2c313.36%2c326.887%2c361.395C302.134%2c407.204%2c307.831%2c462.423%2c334.875%2c506.918C360.834%2c549.627%2c406.998%2c577.946%2c456.908%2c575.314' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M185.66994848705752 663.6599068523794L295.5108797442126 568.1766420411506 200.02761493298377 458.3357107839955 90.18668367582869 553.8189755952244z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M1006.9874418729655 280.91786242894955L1010.0684696335693 369.1469537532936 1098.2975609579132 366.0659259926898 1095.2165331973097 277.8368346683458z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M1331.331701506824 421.97431117371406L1250.034747945479 334.79400195419805 1244.151392287308 503.27126473505905z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M805.1574604640568 202.77610246746738L758.8184689946994 301.9036352756201 854.2390800662225 295.23117614968686z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M599.3332118772202 45.10311404122871L782.6814866829184 61.32009657951396 717.2371774314531-85.67022864203685z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M661.316937566423 552.2389372037089L816.1972171098674 582.3446138206998 846.3028937268583 427.4643342772554 691.4226141834139 397.3586576602645z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1100'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3clinearGradient x1='15.28%25' y1='139.29%25' x2='84.72%25' y2='-39.29%25' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient1101'%3e%3cstop stop-color='%230e2a47' offset='0'%3e%3c/stop%3e%3cstop stop-color='rgba(170%2c 197%2c 231%2c 1)' offset='1'%3e%3c/stop%3e%3c/linearGradient%3e%3cstyle%3e %40keyframes float1 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-10px%2c 0)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float1 %7b animation: float1 5s infinite%3b %7d %40keyframes float2 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-5px%2c -5px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float2 %7b animation: float2 4s infinite%3b %7d %40keyframes float3 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(0%2c -10px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float3 %7b animation: float3 6s infinite%3b %7d %3c/style%3e%3c/defs%3e%3c/svg%3e");
+      background-size: cover;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-[110vh] register">
+  
+  <div class="w-full max-w-lg my-0 p-6 bg-gray-300 rounded-lg shadow-lg">
+    <h1 class="text-2xl font-semibold mb-6 text-center text-dark">Register</h1>
+    <form action="/register" method="POST" class="space-y-4">
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-800">Name:</label>
+        <input type="text" id="name" name="name" required class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
+      </div>
+      <div>
+        <label for="phone" class="block text-sm font-medium text-gray-800">Phone:</label>
+        <input type="text" id="phone" name="phone" required class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
+      </div>
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-800">Email:</label>
+        <input type="email" id="email" name="email" required class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
+      </div>
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-800">Password:</label>
+        <input type="password" id="password" name="password" required class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
+      </div>
+      <div>
+        <label for="gender" class="block text-sm font-medium text-gray-800">Gender:</label>
+        <select id="gender" name="gender" required class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
+          <option value="" disabled selected>Select your gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div>
+        <label for="location" class="block text-sm font-medium text-gray-800">Location:</label>
+        <input type="text" id="location" name="location" required class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
+      </div>
+      <button type="submit" class="w-full py-2 px-4 bg-green-500 text-white font-semibold rounded-md shadow-sm hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Register</button>
+    </form>
+    <p class="mt-4 text-center text-sm text-gray-400">
+      <a href="/login" class="text-blue-400 font-bold hover:text-blue-900">Already have an account? Login here.</a>
+    </p>
+  </div>
+</body>
+</html>

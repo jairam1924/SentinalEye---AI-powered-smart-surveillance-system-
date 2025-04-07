@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= user.name %></title>
+  <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXjceAz3yAZ5Wt_1xqDxOWgOnVd9TVsfb7AH6bO3W-_JZ23xEBIPArcVdc0igqAg3CMfQ&usqp=CAU" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <style>
+    .profile{
+      background-image: linear-gradient(to top, #1e3c72 0%, #1e3c72 1%, #2a5298 100%);
+    }
+    .bg{
+      background-color: #CDDCDC;
+ background-image: radial-gradient(at 50% 100%, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%), linear-gradient(to bottom, rgba(255,255,255,0.25) 0%, rgba(0,0,0,0.25) 100%);
+ background-blend-mode: screen, overlay;
+ background-repeat: no-repeat;
+    }
+  </style>
+</head>
+<body class="bg text-dark">
+
+   <!-- Navbar -->
+   <nav class="bg-green-900 opacity-90 p-4 shadow-md">
+    <div class="max-w-screen-xl px-16 mx-auto flex justify-between items-center">
+    <h1 class="text-white text-2xl font-semibold"><a href="/" class="text-white">Sentinal Eye</a></h1>
+    <div class="flex space-x-4">
+        <a href="/" class="text-white text-lg   duration-300 ease-in-out hover:bg-yellow-500 px-4 py-2 rounded">Home</a>
+        <a href="/aiapp" class="text-white text-lg   duration-300 ease-in-out hover:bg-yellow-500 px-4 py-2 rounded">AI Surveillance</a> 
+        <a href="/profile" class="text-white text-lg   duration-300 ease-in-out hover:bg-yellow-500 px-4 py-2 rounded">Profile</a>
+        <% if (user && user.role !== 'user') { %>  
+
+        <a href="/admin" class="text-white text-lg   duration-300 ease-in-out hover:bg-yellow-500 px-4 py-2 rounded">Admin</a>
+        <% } %>
+        <a href="/logout" class="text-white text-lg duration-300 ease-in-out hover:bg-red-500 px-4 py-2 rounded">Logout</a>
+    </div>
+    </div>
+</nav>
+
+  <!-- Profile Section -->
+  <section class="max-w-screen-xl px-16 py-8 mx-auto">
+    <div class="w-1/2 mx-auto bg-blue-200 shadow-md rounded-lg p-8 flex justify-between items-center profile">
+      <div>
+        <h1 class="text-2xl font-semibold text-white mb-6">User Profile</h1> 
+        <img src="https://img.freepik.com/premium-psd/contact-icon-illustration-isolated_23-2151903357.jpg?semt=ais_hybrid" class="rounded-full m-3" width="120" alt="">
+        <ul class="text-yellow-300 text-xl">
+          <li class="text-2xl text-white font-semibold mb-6"><span class="text-gray-200 font-semibold"></span> <%= user.name %> </li>
+          <li><span class="text-gray-200 font-semibold">Phone:</span> <%= user.phone %></li>
+          <li><span class="text-gray-200 font-semibold">Email:</span> <%= user.email %></li>
+          <li><span class="text-gray-200 font-semibold">Phone:</span> <%= user.phone %></li>
+          <li><span class="text-gray-200 font-semibold">Role:</span> <%= user.role %></li>
+          <li><span class="text-gray-200 font-semibold">Gender:</span> <%= user.gender %></li>
+          <li><span class="text-gray-200 font-semibold">Location:</span> <%= user.location %></li>
+        </ul>
+      </div>
+    
+      <!-- Analytics (Circular Progress Bar) -->
+      <div class="mt-8 flex justify-center">
+       
+      </div>
+
+    </div>
+    <a href="/" class="w-1/2 mx-auto block mt-6 bg-blue-600 text-white hover:bg-blue-700 px-8 py-2 rounded text-center">Back to Home</a>
+
+  </section>
+</body>
+</html>

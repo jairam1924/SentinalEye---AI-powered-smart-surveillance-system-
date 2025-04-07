@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sentinal eye</title>
+  <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXjceAz3yAZ5Wt_1xqDxOWgOnVd9TVsfb7AH6bO3W-_JZ23xEBIPArcVdc0igqAg3CMfQ&usqp=CAU" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  </head>
+  <style>
+    .index{
+      background-image: linear-gradient(to top, #f5fafd 0%, #c1d4c0 100%);
+      background-size: cover;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-dark index">
+
+  <!-- Navbar -->
+  <nav class="bg-green-900 opacity-90 p-4 shadow-md">
+    <div class="max-w-screen-xl px-16 mx-auto flex justify-between items-center">
+    <h1 class="text-white text-2xl font-semibold"><a href="/" class="text-white">Sentinal Eye</a></h1>
+    <div class="flex space-x-4">
+        <a href="/" class="text-white text-lg   duration-300 ease-in-out hover:bg-yellow-500 px-4 py-2 rounded">Home</a>
+        <a href="/aiapp" class="text-white text-lg   duration-300 ease-in-out hover:bg-yellow-500 px-4 py-2 rounded">AI Surveillance</a> 
+        <a href="/profile" class="text-white text-lg   duration-300 ease-in-out hover:bg-yellow-500 px-4 py-2 rounded">Profile</a>
+        <% if (user && user.role !== 'user') { %>  
+
+        <a href="/admin" class="text-white text-lg   duration-300 ease-in-out hover:bg-yellow-500 px-4 py-2 rounded">Admin</a>
+        <% } %>
+        <a href="/logout" class="text-white text-lg duration-300 ease-in-out hover:bg-red-500 px-4 py-2 rounded">Logout</a>
+    </div>
+    </div>
+</nav>
+
+  <!-- Main Section -->
+   <main class="max-w-screen-xl mx-auto ">
+    <section class=" px-16 flex justify-between items-center index  rounded-3xl py-20">
+      <div class="w-1/3 my-auto">
+     
+        <% if (user.name) { %>
+          <h1 class="text-4xl text-dark font-semibold  " > Welcome to <br> SentinalEye <br> <span class="text-blue-800"><%= user.name %></span>!</h1>
+        <% } %>
+         
+   
+          <h2 class="text-2xl mt-8 min-h-[40px]"></h2>
+        
+          <ol style="list-style: square;">
+              <p class="text-2xl mt-8 font-semibold">Key Features:</p>
+              <li><strong>Facial Expression, Emotion, Age, and Gender Detection</strong></li>
+              <li><strong>Auto Capture on Live Streaming Every 30s</strong></li>
+              <li><strong>Additional Image Uploading Facility</strong></li>
+              <li><strong>RapidAPI Integration</strong></li>
+              <li><strong>Real-Time API Processing</strong></li>
+          </ol>
+  
+  
+   
+          <h2 class="text-lg mt-8 font-semibold mt-2">References:</h2>
+          <p>For detailed API usage and documentation, visit the following link:</p>
+          <ul>
+              <li><a href="https://rapidapi.com/tamnvhustcc/api/face-analyzer1/playground/apiendpoint_ceca4e97-05b3-4b80-9638-8b1956ca77e8" target="_blank" class="text-blue-800 font-semibold">Face Analyzer API Documentation</a></li>
+              <li><strong>API Host</strong>: <code>'x-rapidapi-host': 'face-analyzer1.p.rapidapi.com'</code></li>
+          </ul>
+  
+  
+      </div>
+  
+      <!-- Form Section for Translation -->
+        <main class="w-2/3 ">
+          <%- include('core.ejs') -%>
+        </main>
+
+    </section>
+    <div class="p-20"></div>
+   </main>
+
+   
+ 
+  <script>
+     function loadFaceAnalyzer() {
+        const frame = document.getElementById('faceAnalyzerFrame');
+        frame.src = "/index.html";  // Load the file from the public folder
+        frame.classList.remove('hidden');  // Show the iframe
+    }
+  </script>
+</body>
+</html>

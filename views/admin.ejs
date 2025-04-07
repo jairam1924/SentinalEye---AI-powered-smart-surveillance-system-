@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - User List</title>
+  <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXjceAz3yAZ5Wt_1xqDxOWgOnVd9TVsfb7AH6bO3W-_JZ23xEBIPArcVdc0igqAg3CMfQ&usqp=CAU" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <style>
+    .card{
+      background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-dark">
+
+  <!-- Navbar -->
+  <nav class="bg-green-900 opacity-90 p-4 shadow-md">
+    <div class="max-w-screen-xl px-16 mx-auto flex justify-between items-center">
+    <h1 class="text-white text-2xl font-semibold"><a href="/" class="text-white">Sentinal Eye</a></h1>
+    <div class="flex space-x-4">
+        <a href="/" class="text-white text-lg   duration-300 ease-in-out hover:bg-yellow-500 px-4 py-2 rounded">Home</a>
+        <a href="/aiapp" class="text-white text-lg   duration-300 ease-in-out hover:bg-yellow-500 px-4 py-2 rounded">AI Surveillance</a> 
+        <a href="/profile" class="text-white text-lg   duration-300 ease-in-out hover:bg-yellow-500 px-4 py-2 rounded">Profile</a>
+     
+
+        <a href="/admin" class="text-white text-lg   duration-300 ease-in-out hover:bg-yellow-500 px-4 py-2 rounded">Admin</a>
+      
+        <a href="/logout" class="text-white text-lg duration-300 ease-in-out hover:bg-red-500 px-4 py-2 rounded">Logout</a>
+    </div>
+    </div>
+</nav>
+
+
+
+  <!-- Admin Section: User List -->
+  <section class="max-w-screen-xl px-20 py-10 mx-auto">
+    <h1 class="text-3xl font-semibold mb-8 text-gray-800">Admin - User List</h1>
+  
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <% users.forEach(user => { %>
+        <div class="bg-blue-100 rounded-lg shadow-md p-6 flex justify-between items-center card">
+          <div> 
+            <h2 class="text-2xl font-semibold text-white mb-4"><%= user.name %></h2>
+            <ul class="text-yellow-200">
+              <li><span class="text-gray-100 font-semibold">Email:</span> <%= user.email %></li>
+              <li><span class="text-gray-100 font-semibold">Phone:</span> <%= user.phone %></li>
+              <li><span class="text-gray-100 font-semibold">Role:</span> <%= user.role %></li>
+              <li><span class="text-gray-100 font-semibold">Gender:</span> <%= user.gender %></li>
+              <li><span class="text-gray-100 font-semibold">Location:</span> <%= user.location %></li>
+            </ul>
+          </div>
+          
+          <!-- Analytics -->
+          <div class="relative w-36 h-36 mt-6 mx-auto">
+            
+          </div>
+  
+        </div>
+      <% }) %>
+    </div>
+  </section>
+  
+</body>
+</html>
